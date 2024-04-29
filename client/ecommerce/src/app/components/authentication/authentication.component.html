@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit) = "submitEmail(form.controls['emailField'].value)" class="wrapper-form">
+    <label class="label">Email</label>
+        <input
+            class="form-input" 
+            type="email"
+            placeholder= Email
+            formControlName="emailField"
+        />
+        <button class="submit-btn" type="submit" [disabled] = "!form.valid">Continue</button>
+</form>
+<!-- login/ signUp modals -->
+<app-login></app-login>
+<app-registeration></app-registeration>
