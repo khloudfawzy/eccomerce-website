@@ -1,19 +1,45 @@
 <ngx-smart-modal #signupModal identifier='signupModal'>
-    <form [formGroup]="form" (ngSubmit) = "proceedRegister(form.controls[emailField].value, form.controls[passwordField].value)" class="wrapper-form">
+    <form [formGroup]="form"
+     (ngSubmit) = "proceedRegister(form.controls['passwordField'].value, form.controls['repeatPasswordField'].value,
+     form.controls['fullName'].value)" class="wrapper-form">
         <label class="label">Email</label>
+        <div class="wrapper">
             <input
                 class="form-input" 
                 type="email"
-                placeholder= Email
-                formControlName="emailField"
+                [value] = "email"
+                readonly
+            />
+            <button class="edit-btn" (click)="closeOverlay()">
+                <mat-icon>
+                    <span class="material-symbols-outlined">
+                        edit
+                    </span>
+                </mat-icon>
+            </button>
+        </div>
+
+            <input 
+                class="form-input"
+                type="password"
+                placeholder="Password"
+                formControlName="passwordField"
             />
 
             <input 
                 class="form-input"
                 type="password"
-                placeholder="password"
-                formControlName="passwordField"
+                placeholder="Confirm Password"
+                formControlName="repeatPasswordField"
             />
+
+            <input 
+                class="form-input"
+                type="text"
+                placeholder="Full Name"
+                formControlName="fullName"
+            />
+
             <button class="submit-btn" type="submit" [disabled] = "!form.valid">Continue</button>
     </form>
 

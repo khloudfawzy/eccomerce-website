@@ -27,7 +27,8 @@ body{
     border: 1px solid #000;
 }
 
-.submit-btn:disabled {
+.submit-btn:disabled,
+input[readonly] {
     background-color: #e3dede;
     color: #333;
 }
@@ -55,3 +56,5 @@ body{
     cursor: pointer;
     text-decoration: underline;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

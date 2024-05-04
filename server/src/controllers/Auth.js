@@ -36,57 +36,64 @@ exports.findEmail = async (req, res) => {
 }
 
 exports.signUp = async(req, res) => {
-    let { email, password, confirmPassword } = req.body;
+    let { email, password, confirmPassword, fullName } = req.body;
     email = email?.trim();
     password = password?.trim();
     confirmPassword = confirmPassword?.trim();
 
-    if(!password || !confirmPassword) {
-            res.json({
+    if(!password || !confirmPassword || !fullName) {
+            return res.json({
                 status: 400,
                 message: 'empty-required-inputs'
             })
-    } else if (password.length < 8 || confirmPassword.length < 8 || password !== confirmPassword) {
-        res.json({
+    } else if (password.length < 8 || confirmPassword.length < 8 || password !== confirmPassword || fullName.length < 5) {
+        return res.json({
             status: 400,
             message: 'not-valid data'
         })
     } else {
-        User.find({email}).then (result => {
-                // create new user
-                bcrypt.hash(password, 10).then( hashedPassword => {
-                    const newUser = new User({email, password: hashedPassword});
-                    // set a cookie
-                    const token = jwt.sign({ email: newUser.email }, 'shhhhh');
-                    newUser.token = token;
-                    res.cookie('jwt', token, {
-                        httpOnly: true,
+        User.find({email}).then (user => {
+
+            if (user){
+                return res.json({
+                    status: 400,
+                    message: 'email already exists'
+                })
+            }
+            // create new user
+            bcrypt.hash(password, 10).then( hashedPassword => {
+                const newUser = new User({email, password: hashedPassword, fullName});
+                // set a cookie
+                const token = jwt.sign({ email: newUser.email }, 'shhhhh');
+                newUser.token = token;
+                res.cookie('jwt', token, {
+                    httpOnly: true,
+                })
+                //save the user new data
+                newUser.save().then(result => {
+                    //send success response
+                    return res.json({
+                        status: 200,
+                        message: 'register-successful',
+                        data: result
                     })
-                    //save the user new data
-                    newUser.save().then(result => {
-                        //send success response
-                        res.json({
-                            status: 200,
-                            message: 'register-successful',
-                            data: result
-                        })
-                    }).catch(error =>{
-                        res.json({
-                            status: 500,
-                            message: 'error-occured-while-saving-user',
-                            error
-                        })
-                    })
-                }).catch (error =>{
-                    console.log(error);
-                    res.json({
+                }).catch(error =>{
+                    return res.json({
                         status: 500,
-                        message: 'error-occured-while hashing password'
+                        message: 'error-occured-while-saving-user',
+                        error
                     })
                 })
+            }).catch (error =>{
+                console.log(error);
+                return res.json({
+                    status: 500,
+                    message: 'error-occured-while hashing password'
+                })
+            })
         }).catch(error => {
             console.log(error);
-            res.json({
+            return res.json({
                 status: 500,
                 message: 'error-occured-while-signing-up'
             })
@@ -155,26 +162,26 @@ exports.signIn = async(req, res) => {
 
 exports.signOut = async(req, res) => {
     res.clearCookie('jwt');
-    // get current user to set its token to null
-    await URLSearchParams.findOne({token}).then( user => {
-        if (user.length){
-                // update the existing user's email
-                user = {...user, token: null}
-                    //save the user new email
-                user.save().then(result => {
-                    res.json({
-                        status: 200,
-                        message: 'signout-success'
-                    })
-            })
-        }
-    }).catch( error => {
-        console.log(error);
-        res.json({
-            status: 400,
-            message: 'error-while-fetching-user-token'
-        }) 
-    })
+    // // get current user to set its token to null
+    // await URLSearchParams.findOne({token}).then( user => {
+    //     if (user.length){
+    //             // update the existing user's email
+    //             user = {...user, token: null}
+    //                 //save the user new email
+    //             user.save().then(result => {
+    //                 res.json({
+    //                     status: 200,
+    //                     message: 'signout-success'
+    //                 })
+    //         })
+    //     }
+    // }).catch( error => {
+    //     console.log(error);
+    //     res.json({
+    //         status: 400,
+    //         message: 'error-while-fetching-user-token'
+    //     }) 
+    // })
 };
 
 exports.forgotPassword = async(req, res) => {

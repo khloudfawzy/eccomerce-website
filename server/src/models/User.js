@@ -17,9 +17,14 @@ const userSchema = new mongoose.Schema({
     },
     fulName: {
         type: String,
+        require: true,
         trim: true,
         min: 6,
         max: 30,
+    },
+    phone: {
+        type: String,
+        trim: true,
     },
     addresse: {
         type: String,
