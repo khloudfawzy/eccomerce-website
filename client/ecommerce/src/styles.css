@@ -6,7 +6,8 @@ body{
 
 /*  style for form elements */
 .wrapper-form{
-    margin: 10px;
+    width: 70%;
+    margin: auto;
     padding: 10px;
 }
 .wrapper-form .wrapper {
@@ -19,7 +20,7 @@ body{
 }
 .form-input{
     border: 1px solid #e5e5e5;
-    width: 100%;
+    width: 95%;
     margin: 10px;
     padding: 10px;
 }

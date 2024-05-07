@@ -3,14 +3,16 @@ import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NgxSmartModalModule, ReactiveFormsModule],
+  imports: [NgxSmartModalModule, ReactiveFormsModule, MatIconModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent {
   public email: string = '';
   public form: FormGroup;
@@ -30,11 +32,11 @@ export class LoginComponent {
   public ngOnInit() {
   }
 
-  public proceedLogin (email: string, password:string) {
-    this.authenticationService.submitLogin(email, password).subscribe((response)=> {
+  public proceedLogin (password:string) {
+    this.authenticationService.submitLogin(this.email, password).subscribe((response)=> {
       this.authenticationService.transaction = 'signin';
-      this.router.navigate(['confirmation']);
-
+      this.closeOverlay();
+      // this.router.navigate(['confirmation']);
     },(error) => {
       
     })

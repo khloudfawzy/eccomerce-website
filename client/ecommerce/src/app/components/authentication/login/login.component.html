@@ -1,14 +1,25 @@
 <ngx-smart-modal #loginModal identifier='loginModal'>
-    <form [formGroup]="form" (ngSubmit) = "proceedLogin(form.controls['emailField'].value, form.controls['passwordField'].value)" class="wrapper-form">
+    <form [formGroup]="form" (ngSubmit) = "proceedLogin(form.controls['passwordField'].value)" class="wrapper-form">
         <label class="label">Email</label>
+
+        <div class="wrapper">
             <input
-                class="form-input" 
-                type="email"
-                [value] = "email"
-                formControlName="emailField"
-                readonly
+            class="form-input" 
+            type="email"
+            [value] = "email"
+            formControlName="emailField"
+            readonly
             />
 
+            <button class="edit-btn" (click)="closeOverlay()">
+                <mat-icon>
+                    <span class="material-symbols-outlined">
+                        edit
+                    </span>
+                </mat-icon>
+            </button>
+        </div>
+            
             <input 
                 class="form-input"
                 type="password"

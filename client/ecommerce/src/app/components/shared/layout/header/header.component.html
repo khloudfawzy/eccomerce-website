@@ -1,1 +1,61 @@
-<p>header works!</p>
+<header>
+    <h1>KShop</h1>
+
+    <div class="search-input">
+        <input type="text">
+        <button>
+            <mat-icon>
+                <span class="material-symbols-outlined">
+                search
+                </span>
+            </mat-icon>
+        </button>
+    </div>
+
+    <div class="navigation-tools">
+        <div class="icon" >
+            <mat-icon>
+                <span class="material-symbols-outlined profile" (click) = "prepareNavigationBar($event)">
+                    account_circle
+                </span>
+            </mat-icon>
+        </div>
+
+        <div class="icon">
+            <mat-icon>
+                <span class="material-symbols-outlined cart" (click) = "prepareNavigationBar($event)">
+                    shopping_cart
+                </span>
+            </mat-icon>
+        </div>
+
+        <div class="icon">
+            <mat-icon>
+                <span class="material-symbols-outlined">
+                    favorite
+                </span>
+            </mat-icon>
+        </div>
+
+        <div class="icon">
+            <mat-icon>
+                <span class="material-symbols-outlined callCenter" (click) = "prepareNavigationBar($event)">
+                    headphones
+                </span>
+            </mat-icon>
+        </div>
+
+        <div class="icon">
+            <mat-icon>
+                <span class="material-symbols-outlined languages" (click) = "prepareNavigationBar($event)">
+                    language
+                </span>
+            </mat-icon>
+        </div>
+    </div>
+</header>
+<!-- drop down -->
+<app-profile-drop-down  *ngIf ="isHidden['profile']"></app-profile-drop-down>
+<app-cart-drop-down  *ngIf ="isHidden['cart']"></app-cart-drop-down>
+<app-call-center-drop-down  *ngIf ="isHidden['callCenter']"></app-call-center-drop-down>
+<app-languages-drop-down  *ngIf ="isHidden['languages']"></app-languages-drop-down>

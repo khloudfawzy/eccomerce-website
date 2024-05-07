@@ -38,6 +38,7 @@ export class RegisterationComponent {
   public proceedRegister(password: string, confirmPassword:string, fullName: string){
     this.authenticationService.submitRegister(this.email, password, confirmPassword, fullName).subscribe((response) => {
       this.authenticationService.transaction = 'register';
+      this. closeOverlay();
       // this.router.navigate(['confirmation'], {relativeTo:});
     },(error) => {
       //try again

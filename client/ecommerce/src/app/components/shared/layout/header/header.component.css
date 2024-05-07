@@ -1,0 +1,58 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 10px;
+}
+
+header h1{
+    margin:0;
+    letter-spacing: 4px;
+}
+
+header h1:nth-child(1){
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.search-input {
+    display: flex;
+    width: 60%;
+}
+
+.search-input input {
+    padding: 10px;
+    border: 1px solid #000;
+    width: 75%;
+}
+
+.search-input button {
+    border: none;
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+}
+
+.search-input button:hover {
+    cursor: pointer;
+}
+
+.navigation-tools{
+    display: flex;
+}
+
+.navigation-tools .icon {
+    margin: 10px;
+}
+.navigation-tools .icon:hover {
+    cursor: pointer;
+}
+
+/* .drop-down ul{
+    list-style: none;
+    text-decoration: none;
+}
+
+.drop-down li {
+    color: #666;
+    font-size: .75rem;
+} */

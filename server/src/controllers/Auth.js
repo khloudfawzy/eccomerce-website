@@ -7,7 +7,7 @@ exports.findEmail = async (req, res) => {
     const emailRegex = regex.email;
     let email = req.body.email;
     if (!req.body.email || !emailRegex.test(email)){
-        return res.json({
+        return res.status(400).json({
             status: 400,
             message: 'invalid-email'
         })
@@ -27,7 +27,7 @@ exports.findEmail = async (req, res) => {
         })
     }).catch(error => {
         console.log(error);
-        res.json({
+        res.status(500).json({
             status: 500,
             message: 'error-occured-while-searching-for-email'
         })
@@ -42,25 +42,25 @@ exports.signUp = async(req, res) => {
     confirmPassword = confirmPassword?.trim();
 
     if(!password || !confirmPassword || !fullName) {
-            return res.json({
+            return res.status(400).json({
                 status: 400,
                 message: 'empty-required-inputs'
             })
     } else if (password.length < 8 || confirmPassword.length < 8 || password !== confirmPassword || fullName.length < 5) {
-        return res.json({
+        return res.status(400).json({
             status: 400,
             message: 'not-valid data'
         })
     } else {
-        User.find({email}).then (user => {
-
-            if (user){
-                return res.json({
+        await User.find({email}).then (user => {
+            // if email exists returns error
+            if (user.length > 0){
+                return res.status(400).json({
                     status: 400,
                     message: 'email already exists'
                 })
             }
-            // create new user
+            // if email doesn;t exist, create new user
             bcrypt.hash(password, 10).then( hashedPassword => {
                 const newUser = new User({email, password: hashedPassword, fullName});
                 // set a cookie
@@ -78,22 +78,21 @@ exports.signUp = async(req, res) => {
                         data: result
                     })
                 }).catch(error =>{
-                    return res.json({
+                    return res.status(500).json({
                         status: 500,
                         message: 'error-occured-while-saving-user',
-                        error
                     })
                 })
             }).catch (error =>{
                 console.log(error);
-                return res.json({
+                return res.status(500).json({
                     status: 500,
                     message: 'error-occured-while hashing password'
                 })
             })
         }).catch(error => {
             console.log(error);
-            return res.json({
+            return res.status(500).json({
                 status: 500,
                 message: 'error-occured-while-signing-up'
             })
@@ -103,56 +102,65 @@ exports.signUp = async(req, res) => {
 
 exports.signIn = async(req, res) => {
     let { email, password } = req.body;
-    email = email?.trim();
+    email = email?.trim().toLowerCase();
     password = password?.trim();
 
     if(!email || !password) {
-            res.json({
+            res.status(400).json({
                 status: 400,
                 message: 'empty-required-inputs'
             })
     } else {
-        User.findOne({email}).then (user => {
-            if (user.length){
+        await User.find({email}).then (user => {
+            if (user.length > 0){
+                const dbPassword = user[0].password;
                 // check if password correct
-                const hashedPassword = user.password;
-                bcrypt.compare(password, hashedPassword).then(result => {
-                    if(result){
-                        // set a cookie
-                        const token = jwt.sign({ email: newUser.email }, 'shhhhh');
-                        user.token = token;
-                        res.cookie('jwt', token, {
-                            httpOnly: true,
+                bcrypt.hash(password, 10).then((hashedPassword) => {
+                    bcrypt.compare(hashedPassword, dbPassword).then(result => {
+                        console.log('hashedPassword', hashedPassword)
+                        console.log('dbPassword', dbPassword)
+                        if(result){
+                            // set a cookie
+                            const token = jwt.sign({ email: newUser.email }, 'shhhhh');
+                            user.token = token;
+                            res.cookie('jwt', token, {
+                                httpOnly: true,
+                            })
+                            // save the user token
+                            user.save();
+    
+                            //send success response
+                           return res.json({
+                                status: 200,
+                                message: 'login-success'
+                            })
+                        } else {
+                           return res.status(400).json({
+                                status: 400,
+                                message: 'wrong-password'
+                            })
+                        }
+                    }).catch(error =>{
+                       return res.status(500).json({
+                            status: 500,
+                            message: 'error-happened-while-comparing-passwors',
+                            error: error
                         })
-                        // save the user token
-                        user.save();
-
-                        //send success response
-                        res.json({
-                            status: 200,
-                            message: 'login-success'
-                        })
-                    } else {
-                        res.json({
-                            status: 400,
-                            message: 'wrong-password'
-                        })
-                    }
-                }).catch(error =>{
-                    res.json({
-                        status: 500,
-                        message: 'error-happened-while-comparing-passwors'
+                    })
+                }).catch((error) => {
+                    return res.status(500).json({
+                        status:500,
+                        message: 'error-while-hashing-password'
                     })
                 })
             } else {
-                res.json({
+                return res.status(400).json({
                     status: 400,
                     message: 'email-not-found'
                 })
             }
         }).catch(error => {
-            console.log(error);
-            res.json({
+            return res.status(500).json({
                 status: 500,
                 message: 'error-occured'
             })
@@ -189,7 +197,7 @@ exports.forgotPassword = async(req, res) => {
     email = email?.trim();
 
     if(!email) {
-            res.json({
+            res.status(400).json({
                 status: 400,
                 message: 'empty-required-inputs'
             })
@@ -198,14 +206,14 @@ exports.forgotPassword = async(req, res) => {
             if (user.length){
                 //code for sending email here
             } else {
-                res.json({
+                res.status(400).json({
                     status: 400,
                     message: 'email-not-found'
                 })
             }
         }).catch(error => {
             console.log(error);
-            res.json({
+            res.status(500).json({
                 status: 500,
                 message: 'error-occured'
             })
@@ -220,12 +228,12 @@ exports.changePassword = async(req, res) => {
     confirmPassword = password?.trim();
 
     if(!oldPassword || !newPassword || !confirmPassword) {
-            res.json({
+            res.status(400).json({
                 status: 400,
                 message: 'empty-required-inputs'
             })
     } else if (newPassword.length < 8 || confirmPassword.length < 8 || newPassword !== confirmPassword) {
-        res.json({
+        res.status(400).json({
             status: 400,
             message: 'not-valid data'
         })
@@ -244,7 +252,7 @@ exports.changePassword = async(req, res) => {
                             message: 'password-changed-successfully',
                         })
                     }).catch(error =>{
-                        res.json({
+                        res.status(500).json({
                             status: 500,
                             message: 'error-occured-while-saving-new password',
                             error
@@ -252,7 +260,7 @@ exports.changePassword = async(req, res) => {
                     })
                 }).catch (error =>{
                     console.log(error);
-                    res.json({
+                    res.status(500).json({
                         status: 500,
                         message: 'error-occured-while hashing password'
                     })
@@ -260,7 +268,7 @@ exports.changePassword = async(req, res) => {
             }
         }).catch( error => {
             console.log(error);
-            res.json({
+            res.status(400).json({
                 status: 400,
                 message: 'error-while-fetching-user-token'
             }) 
@@ -276,7 +284,7 @@ exports.changeEmailBeforeVerification = async(req, res) => {
         }
     }).catch( error => {
         console.log(error);
-        res.json({
+        res.status(400).json({
             status: 400,
             message: 'error-while-fetching-user-token'
         }) 
@@ -300,7 +308,7 @@ exports.changeEmailAfterVerification = async(req, res) => {
         }
     }).catch( error => {
         console.log(error);
-        res.json({
+        res.status(400).json({
             status: 400,
             message: 'error-while-fetching-user-token'
         }) 

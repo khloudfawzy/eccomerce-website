@@ -1,0 +1,15 @@
+.drop-down{
+    font-size: .75rem;
+    color: #666;
+    background-color: #fff;
+    box-shadow: 1px 2px #e8e8e8;
+
+    /* width: 150px; */
+    text-align: center;
+
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    /* margin-right: 150px; */
+    
+}
