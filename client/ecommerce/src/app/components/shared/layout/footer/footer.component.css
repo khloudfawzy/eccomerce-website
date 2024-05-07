@@ -1,0 +1,37 @@
+footer{
+    display: flex;
+    flex-direction: column;
+    background-color: #fafafa;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    text-align: left;
+    color: #666;
+    font-size: .75rem;
+}
+
+.info-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.copy-rights{
+    display: flex;
+    flex-direction: column;
+    color: #666;
+    font-size: .6rem;
+    text-align: center;
+}
+
+.copy-rights ul{
+    display: flex;
+    justify-content: space-around;
+}
