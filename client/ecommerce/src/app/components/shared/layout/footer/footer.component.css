@@ -2,6 +2,11 @@ footer{
     display: flex;
     flex-direction: column;
     background-color: #fafafa;
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem; 
 }
 
 ul{
@@ -29,6 +34,7 @@ a{
     color: #666;
     font-size: .6rem;
     text-align: center;
+    bottom: 5px;
 }
 
 .copy-rights ul{

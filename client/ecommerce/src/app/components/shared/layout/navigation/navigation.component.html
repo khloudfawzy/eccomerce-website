@@ -1,1 +1,25 @@
-<p>navigation works!</p>
+<nav>
+    <div class="navigation-items">
+        <ul #navigationTabs>
+            <li *ngFor = "let item of itemsList"><a href="item.link">{{item.title}}</a></li>
+        </ul>
+    </div>
+
+    <div class="arrows-container">
+        <button class="left"  (click) = "swipeLeft()">
+            <mat-icon>
+                <span class="material-symbols-outlined icon">
+                    chevron_left
+                </span>
+            </mat-icon>
+        </button>
+
+        <button class="right"  (click) = "swipeRight()">
+            <mat-icon>
+                <span class="material-symbols-outlined icon">
+                    chevron_right
+                </span>
+            </mat-icon>
+        </button>
+    </div>
+</nav>

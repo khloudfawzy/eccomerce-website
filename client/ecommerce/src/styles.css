@@ -2,6 +2,8 @@
 body{
     font-size: 16px;
     font-family: Arial,Helvetica,sans-serif !important;
+    height: 100%;
+    position: relative;
 }
 
 /*  style for form elements */
