@@ -7,14 +7,15 @@ import { Regex } from '../../shared/constants/regex-defines';
 import { RegisterationComponent } from './registeration/registeration.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { SharedModule } from './authentication.module';
 
 /** Authentication Component */
 @Component({
   selector: 'app-authentication',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoginComponent, RegisterationComponent, MatDialogModule
+  imports: [CommonModule, ReactiveFormsModule, LoginComponent, RegisterationComponent, MatDialogModule, SharedModule
   ],
-  providers: [AuthenticationService],
+  // providers: [AuthenticationService],
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.css'
 })
@@ -36,8 +37,9 @@ export class authenticationComponent {
   public submitEmail(email: string){
     this.authenticationSerive.findEmail(email)
       .subscribe((response: any) => {
-          const nextStep = response.nextStep;
           this.authenticationSerive.emailSubmitted.emit(email);
+          console.log('auth', email)
+
           if(response.nextStep === 'login')
             {
               this.dialogModel.open(LoginComponent);

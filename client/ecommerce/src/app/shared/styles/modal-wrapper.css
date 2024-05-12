@@ -2,10 +2,10 @@
 /* styles for Modal wrapper */
 .modal-wrapper{
     background-color: #fff;
-    padding: 15px;
+    padding: 10px 5px;
 }
 
-.modal-wrapper h3{
+.modal-wrapper h4{
     text-align: center;
 }
 
@@ -14,14 +14,32 @@
     /* padding-top: 5px; */
 }
 
+.modal-wrapper .exit-btn button:hover{
+    cursor: pointer;
+}
 .modal-wrapper .exit-btn button {
     border: none;
     background-color: transparent;
 }
-
 .modal-wrapper .policyText {
     font-size: .75rem;
     text-align: center;
     color: #666;
     margin: 5px 10px;
+}
+
+/* styles for the non editable inputs */
+.non-editable{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative
+}
+.non-editable .edit-icon {
+    border: none;
+    background-color: #e3dede;
+    /* transform: translateX(-50%); */
+}
+.non-editable .edit-icon:hover {
+    cursor: pointer;
 }

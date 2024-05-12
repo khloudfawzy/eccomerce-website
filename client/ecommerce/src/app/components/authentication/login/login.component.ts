@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from '../authentication.module';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, MatIconModule],
-  providers: [AuthenticationService],
+  imports: [ReactiveFormsModule, MatIconModule, SharedModule],
+  // providers: [AuthenticationService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -18,14 +20,15 @@ export class LoginComponent {
   public form: FormGroup;
 
   constructor(public fb: FormBuilder,
-     public authenticationService: AuthenticationService, public router: Router) {
+     public authenticationService: AuthenticationService, public router: Router,
+     public dialogRef: MatDialogRef<LoginComponent>) {
       // subscribe to the email event before setting its value in the form
       this.authenticationService.emailSubmitted.subscribe((email) => {
         this.email = email;
       });
       this.form = this.fb.group({
         emailField: [this.email],
-        passwordField: ''
+        passwordField: ['', [Validators.required]]
     })
   }
 
@@ -47,6 +50,7 @@ export class LoginComponent {
   }
 
   public closeOverlay() {
-    // this.dialogRef.close();
+    
+    this.dialogRef.close();
   }
 }

@@ -8,19 +8,19 @@
             </mat-icon>
             <button (click)="closeOverlay()">GO BACK</button>
     </div>
-        <h3 mat-dialog-title> Register</h3>
+        <h4 mat-dialog-title> Register</h4>
         <form mat-dialog-content [formGroup]="form"
         (ngSubmit) = "proceedRegister(form.controls['passwordField'].value, form.controls['repeatPasswordField'].value,
         form.controls['fullName'].value)" class="wrapper-form">
         <label class="label">Email</label>
-        <div class="wrapper">
+        <div class="non-editable">
             <input
             class="form-input" 
             type="email"
             [value] = "email"
             readonly
             />
-            <button class="edit-btn" (click)="closeOverlay()">
+            <button type="button" class="edit-icon" (click)="closeOverlay()">
                 <mat-icon>
                     <span class="material-symbols-outlined">
                         edit

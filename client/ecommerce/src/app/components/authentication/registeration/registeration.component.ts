@@ -3,12 +3,14 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from '../authentication.module';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-registeration',
   standalone: true,
-  imports: [ReactiveFormsModule, MatIconModule],
-  providers: [AuthenticationService],
+  imports: [ReactiveFormsModule, MatIconModule, SharedModule],
+  // providers: [AuthenticationService],
   templateUrl: './registeration.component.html',
   styleUrl: './registeration.component.css'
 })
@@ -17,9 +19,11 @@ export class RegisterationComponent {
   public form: FormGroup;
 
   constructor(public fb: FormBuilder,
-     public authenticationService: AuthenticationService, private router: Router) {
+     public authenticationService: AuthenticationService, private router: Router,
+     public dialogRef: MatDialogRef<RegisterationComponent>) {
       // subscribe to the email event before setting its value in the form
       this.authenticationService.emailSubmitted.subscribe((email) => {
+        console.log('register',email)
         this.email = email;
       })
       this.form = this.fb.group({
@@ -45,6 +49,6 @@ export class RegisterationComponent {
   }
 
   public closeOverlay() {
-    // this.dialogRef.close();
+    this.dialogRef.close();
   }
 }
