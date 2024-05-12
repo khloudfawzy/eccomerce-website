@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule, ViewportScroller } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { NavigationTabl } from '../../../../shared/models/navigation-tab.model';
+import { NavigationTab } from '../../../../shared/models/navigation-tab.model';
 
 @Component({
   selector: 'app-navigation',
@@ -12,11 +12,11 @@ import { NavigationTabl } from '../../../../shared/models/navigation-tab.model';
 })
 export class NavigationComponent {
 
-  public itemsList: NavigationTabl[] = [];
+  public itemsList: NavigationTab[] = [];
   @ViewChild('navigationTabs')
   public navigationTab!: ElementRef;
 
-  public constructor( public changeDetector: ChangeDetectorRef){}
+  public constructor(public scroller: ViewportScroller){}
 
   public ngOnInit() {
     this.itemsList = [
@@ -100,17 +100,14 @@ export class NavigationComponent {
   }
 
   public swipeLeft(){
-    console.log(this.navigationTab.nativeElement)
-    // this.navigationTab.nativeElement.scrollTo({ left: (this.navigationTab.nativeElement.scrollLeft + 350), behavior: 'smooth' })
-    this.navigationTab.nativeElement.scrollLeft -= 350;
-    this.changeDetector.detectChanges();
-    console.log(this.navigationTab.nativeElement.scrollLeft)
-  }
+    this.navigationTab.nativeElement.scrollBy({
+      left: -350,
+    });
+  } 
 
   public swipeRight(){
-    this.navigationTab.nativeElement.scrollLeft += 350;
-    console.log(this.navigationTab.nativeElement.scrollLeft)
-    this.changeDetector.detectChanges();
+    this.navigationTab.nativeElement.scrollBy({
+      left: 350,
+    });
   }
-
 }

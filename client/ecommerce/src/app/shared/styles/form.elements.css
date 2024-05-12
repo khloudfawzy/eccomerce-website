@@ -1,0 +1,43 @@
+
+/*  style for form elements */
+.wrapper-form{
+    width: 70%;
+    margin: auto;
+    padding: 10px;
+}
+.wrapper-form .wrapper {
+    width: 80%;
+}
+.wrapper-form .label{
+    font-size: .75rem;
+    color: #666;
+    margin: 5px 10px;
+}
+.form-input{
+    border: 1px solid #e5e5e5;
+    width: 95%;
+    margin: 10px;
+    padding: 10px;
+}
+.form-input:hover{
+    border: 1px solid #000;
+}
+
+.submit-btn:disabled,
+input[readonly] {
+    background-color: #e3dede;
+    color: #333;
+}
+
+.submit-btn{
+    color: #fff;
+    background-color: #000;
+    border: none;;
+    padding: 10px;
+    margin: 10px;
+    width:100%
+}
+
+.submit-btn:hover{
+    cursor: pointer;
+}

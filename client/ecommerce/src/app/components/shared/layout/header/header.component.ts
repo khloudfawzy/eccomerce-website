@@ -6,12 +6,13 @@ import { CallCenterDropDownComponent } from './call-center-drop-down/call-center
 import { LanguagesDropDownComponent } from './languages-drop-down/languages-drop-down.component';
 import { indexSignatureModel } from '../../../../shared/models/index-signature.model';
 import { CommonModule } from '@angular/common';
+import { NavigationComponent } from '../navigation/navigation.component';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule ,MatIconModule, ProfileDropDownComponent, CartDropDownComponent, CallCenterDropDownComponent, LanguagesDropDownComponent ],
+  imports: [CommonModule ,MatIconModule,NavigationComponent, ProfileDropDownComponent, CartDropDownComponent, CallCenterDropDownComponent, LanguagesDropDownComponent ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

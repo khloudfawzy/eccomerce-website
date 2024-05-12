@@ -1,63 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-body{
+/* import other CSS files */
+@import './app/shared/styles/form.elements.css';
+@import './app/shared/styles/link.css';
+@import './app/shared/styles/modal-wrapper.css';
+
+/* body & html generic styles */
+body, html{
     font-size: 16px;
     font-family: Arial,Helvetica,sans-serif !important;
-    height: 100%;
-    position: relative;
-}
+    max-height: 100%;
+    /* position: relative; */
+    max-width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth !important;
 
-/*  style for form elements */
-.wrapper-form{
-    width: 70%;
-    margin: auto;
-    padding: 10px;
 }
-.wrapper-form .wrapper {
-    width: 80%;
-}
-.wrapper-form .label{
-    font-size: .75rem;
-    color: #666;
-    margin: 5px 10px;
-}
-.form-input{
-    border: 1px solid #e5e5e5;
-    width: 95%;
-    margin: 10px;
-    padding: 10px;
-}
-.form-input:hover{
-    border: 1px solid #000;
-}
-
-.submit-btn:disabled,
-input[readonly] {
-    background-color: #e3dede;
-    color: #333;
-}
-
-.submit-btn{
-    color: #fff;
-    background-color: #000;
-    border: none;;
-    padding: 10px;
-    margin: 10px;
-    width:100%
-}
-
-.submit-btn:hover{
-    cursor: pointer;
-}
-
-/* links style */
-.redirectionLink{
-    font-size: .75rem;
-    color: #666;
-    margin: 5px 10px;
-}
-.redirectionLink:hover{
-    cursor: pointer;
-    text-decoration: underline;
-}
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,7 +1,16 @@
-<ngx-smart-modal #loginModal identifier='loginModal'>
-    <form [formGroup]="form" (ngSubmit) = "proceedLogin(form.controls['passwordField'].value)" class="wrapper-form">
+<div class="modal-wrapper">
+    <div mat-dialog-actions class="exit-btn">
+        <mat-icon>
+            <span class="material-symbols-outlined icon">
+                chevron_left
+            </span>
+        </mat-icon>
+        <button (click)="closeOverlay()">GO BACK</button>
+    </div>
+    <h3 mat-dialog-title> Register</h3>
+    <form mat-dialog-content [formGroup]="form" (ngSubmit) = "proceedLogin(form.controls['passwordField'].value)" class="wrapper-form">
         <label class="label">Email</label>
-
+    
         <div class="wrapper">
             <input
             class="form-input" 
@@ -10,7 +19,7 @@
             formControlName="emailField"
             readonly
             />
-
+    
             <button class="edit-btn" (click)="closeOverlay()">
                 <mat-icon>
                     <span class="material-symbols-outlined">
@@ -29,8 +38,6 @@
             <a class="redirectionLink" (click) = "redirectToForgotPassword()">forgot your password?</a>
             <button class="submit-btn" type="submit" [disabled] = "!form.valid">Continue</button>
     </form>
-
-    <p class="policyText">By signing in to your account, you agree to our <a href="#"> Privacy & Cookie Policy</a> and <a href="#">Terms & Conditions</a>.</p>
-    <button (click)="closeOverlay()">GO BACK</button>
-</ngx-smart-modal>
-
+    
+    <p mat-dialog-content class="policyText">By creating your account, you agree to our <a href="#"> Privacy & Cookie Policy</a> and <a href="#">Terms & Conditions</a>.</p>    
+</div>

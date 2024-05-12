@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,8 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-registeration',
   standalone: true,
-  imports: [NgxSmartModalModule, ReactiveFormsModule, MatIconModule],
-  providers: [NgxSmartModalService],
+  imports: [ReactiveFormsModule, MatIconModule],
+  providers: [AuthenticationService],
   templateUrl: './registeration.component.html',
   styleUrl: './registeration.component.css'
 })
@@ -17,7 +16,7 @@ export class RegisterationComponent {
   public email: string = '';
   public form: FormGroup;
 
-  constructor(public ngxSmartModalService: NgxSmartModalService, public fb: FormBuilder,
+  constructor(public fb: FormBuilder,
      public authenticationService: AuthenticationService, private router: Router) {
       // subscribe to the email event before setting its value in the form
       this.authenticationService.emailSubmitted.subscribe((email) => {
@@ -46,6 +45,6 @@ export class RegisterationComponent {
   }
 
   public closeOverlay() {
-    this.ngxSmartModalService.getModal('signupModal').close();
+    // this.dialogRef.close();
   }
 }

@@ -1,0 +1,27 @@
+
+/* styles for Modal wrapper */
+.modal-wrapper{
+    background-color: #fff;
+    padding: 15px;
+}
+
+.modal-wrapper h3{
+    text-align: center;
+}
+
+.modal-wrapper .exit-btn{
+    display: flex;
+    /* padding-top: 5px; */
+}
+
+.modal-wrapper .exit-btn button {
+    border: none;
+    background-color: transparent;
+}
+
+.modal-wrapper .policyText {
+    font-size: .75rem;
+    text-align: center;
+    color: #666;
+    margin: 5px 10px;
+}

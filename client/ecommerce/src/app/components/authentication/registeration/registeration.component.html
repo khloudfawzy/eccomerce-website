@@ -1,14 +1,24 @@
-<ngx-smart-modal #signupModal identifier='signupModal'>
-    <form [formGroup]="form"
-     (ngSubmit) = "proceedRegister(form.controls['passwordField'].value, form.controls['repeatPasswordField'].value,
-     form.controls['fullName'].value)" class="wrapper-form">
+ <div class="modal-wrapper">
+
+     <div mat-dialog-actions class="exit-btn">
+         <mat-icon>
+             <span class="material-symbols-outlined icon">
+                 chevron_left
+                </span>
+            </mat-icon>
+            <button (click)="closeOverlay()">GO BACK</button>
+    </div>
+        <h3 mat-dialog-title> Register</h3>
+        <form mat-dialog-content [formGroup]="form"
+        (ngSubmit) = "proceedRegister(form.controls['passwordField'].value, form.controls['repeatPasswordField'].value,
+        form.controls['fullName'].value)" class="wrapper-form">
         <label class="label">Email</label>
         <div class="wrapper">
             <input
-                class="form-input" 
-                type="email"
-                [value] = "email"
-                readonly
+            class="form-input" 
+            type="email"
+            [value] = "email"
+            readonly
             />
             <button class="edit-btn" (click)="closeOverlay()">
                 <mat-icon>
@@ -19,31 +29,32 @@
             </button>
         </div>
 
-            <input 
-                class="form-input"
-                type="password"
-                placeholder="Password"
-                formControlName="passwordField"
-            />
+        <input 
+        class="form-input"
+        type="password"
+        placeholder="Password"
+        formControlName="passwordField"
+        />
 
-            <input 
-                class="form-input"
-                type="password"
-                placeholder="Confirm Password"
-                formControlName="repeatPasswordField"
-            />
+        <input 
+        class="form-input"
+        type="password"
+        placeholder="Confirm Password"
+        formControlName="repeatPasswordField"
+        />
 
-            <input 
-                class="form-input"
-                type="text"
-                placeholder="Full Name"
-                formControlName="fullName"
-            />
+        <input 
+        class="form-input"
+        type="text"
+                    placeholder="Full Name"
+                    formControlName="fullName"
+                />
 
-            <button class="submit-btn" type="submit" [disabled] = "!form.valid">Continue</button>
-    </form>
+                <button class="submit-btn" type="submit" [disabled] = "!form.valid">Continue</button>
+        </form>
 
-    <p class="policyText">By creating your account, you agree to our <a href="#"> Privacy & Cookie Policy</a> and <a href="#">Terms & Conditions</a>.</p>
-    <button (click)="closeOverlay()">GO BACK</button>
-</ngx-smart-modal>
+        <p mat-dialog-content class="policyText">By creating your account, you agree to our <a href="#"> Privacy & Cookie Policy</a> and <a href="#">Terms & Conditions</a>.</p>
 
+
+
+</div>

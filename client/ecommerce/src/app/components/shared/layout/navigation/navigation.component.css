@@ -16,6 +16,7 @@ nav .navigation-items ul{
     justify-content: center;
     justify-items: center;
     width: 100%;
+    white-space: nowrap; /* to ensure that list items stay in a single line */
 
 }
 

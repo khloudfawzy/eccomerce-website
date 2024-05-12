@@ -1,0 +1,11 @@
+
+/* links style */
+.redirectionLink{
+    font-size: .75rem;
+    color: #666;
+    margin: 5px 10px;
+}
+.redirectionLink:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
