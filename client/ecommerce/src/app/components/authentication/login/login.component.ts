@@ -5,11 +5,13 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../authentication.module';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgotPasswordbyEmailComponent } from '../forgot-password-by-email/forgot-password.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, SharedModule, MatIconModule],
+  imports: [ReactiveFormsModule, SharedModule, MatIconModule, ForgotPasswordbyEmailComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -20,7 +22,7 @@ export class LoginComponent {
 
   constructor(public fb: FormBuilder,
      public authenticationService: AuthenticationService, public router: Router,
-     public dialogRef: MatDialogRef<LoginComponent>) {
+     public dialogRef: MatDialogRef<LoginComponent>, private dialogModel: MatDialog) {
       // subscribe to the email event before setting its value in the form
       this.authenticationService.emailSubmitted.subscribe((email) => {
         this.email = email;
@@ -46,7 +48,8 @@ export class LoginComponent {
   }
 
   public redirectToForgotPassword() {
-    // this.router.navigate([])
+    this.dialogRef.close();
+    this.dialogModel.open(ForgotPasswordbyEmailComponent);
   }
 
   public closeOverlay() {
