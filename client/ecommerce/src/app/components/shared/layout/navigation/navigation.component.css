@@ -8,6 +8,7 @@ nav ul {
 }
 
 nav .navigation-items{
+    width: 100%;
     overflow-x: hidden;
 }
 
@@ -18,6 +19,11 @@ nav .navigation-items ul{
     width: 100%;
     white-space: nowrap; /* to ensure that list items stay in a single line */
 
+}
+
+.navigation-container{
+    width: 100%;
+    overflow-x: hidden;
 }
 
 nav .navigation-items li{

@@ -13,9 +13,8 @@ import { SharedModule } from './authentication.module';
 @Component({
   selector: 'app-authentication',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoginComponent, RegisterationComponent, MatDialogModule, SharedModule
+  imports: [CommonModule, ReactiveFormsModule,SharedModule, LoginComponent, RegisterationComponent, MatDialogModule
   ],
-  // providers: [AuthenticationService],
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.css'
 })

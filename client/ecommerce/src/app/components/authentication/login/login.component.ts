@@ -9,8 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, MatIconModule, SharedModule],
-  // providers: [AuthenticationService],
+  imports: [ReactiveFormsModule, SharedModule, MatIconModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -26,6 +25,7 @@ export class LoginComponent {
       this.authenticationService.emailSubmitted.subscribe((email) => {
         this.email = email;
       });
+      console.log(this.email)
       this.form = this.fb.group({
         emailField: [this.email],
         passwordField: ['', [Validators.required]]
@@ -46,7 +46,7 @@ export class LoginComponent {
   }
 
   public redirectToForgotPassword() {
-    //
+    // this.router.navigate([])
   }
 
   public closeOverlay() {

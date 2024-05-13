@@ -9,8 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-registeration',
   standalone: true,
-  imports: [ReactiveFormsModule, MatIconModule, SharedModule],
-  // providers: [AuthenticationService],
+  imports: [ReactiveFormsModule, SharedModule, MatIconModule],
   templateUrl: './registeration.component.html',
   styleUrl: './registeration.component.css'
 })
@@ -23,7 +22,6 @@ export class RegisterationComponent {
      public dialogRef: MatDialogRef<RegisterationComponent>) {
       // subscribe to the email event before setting its value in the form
       this.authenticationService.emailSubmitted.subscribe((email) => {
-        console.log('register',email)
         this.email = email;
       })
       this.form = this.fb.group({

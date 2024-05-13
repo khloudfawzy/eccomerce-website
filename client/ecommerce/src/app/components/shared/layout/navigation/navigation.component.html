@@ -1,8 +1,8 @@
 <nav>
-    <div class="navigation-items">
-        <ul #navigationTabs>
-            <li *ngFor = "let item of itemsList"><a [href]="item.link">{{item.title}}</a></li>
-        </ul>
+    <div #navigationContainer class="navigation-items">
+            <ul>
+                <li *ngFor = "let item of itemsList"><a [href]="item.link">{{item.title}}</a></li>
+            </ul>
     </div>
 
     <div class="arrows-container">
